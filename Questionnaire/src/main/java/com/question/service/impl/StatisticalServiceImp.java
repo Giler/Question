@@ -273,4 +273,10 @@ public class StatisticalServiceImp implements StatisticalServiceI {
 		return selePer;
 	}
 
+	@Override
+	public void test() {
+		// TODO Auto-generated method stub
+		System.out.println("我就测试一下，你别报错啊");
+	}
+	
 }

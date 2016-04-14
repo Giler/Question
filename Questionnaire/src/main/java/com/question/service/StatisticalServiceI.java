@@ -64,4 +64,6 @@ public interface StatisticalServiceI {
 	 */
 	public List<Statistical> getDeptSumByQuesTopic(Integer questionnaireId,Integer topicId);
 	
+	public void test();
+	
 }
