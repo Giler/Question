@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="js/jquery-2.0.0.js"></script>
+    <script src="js/Chart.js"></script>
+    <script>
+        var dataA = new Array ("10","20","30","40","50","60");
+        /**
+         *LineData
+         */
+        function getLineData(topic){
+        	var data = {
+            	labels : ["A", "B", "C", "D", "E", "F"],
+            	datasets : [
+             	   {
+	                    fillColor : "rgba(20,220,220,0.5)",
+	                    strokeColor : "rgba(20,220,220,1)",
+	                    pointColor : "rgba(20,220,220,1)",
+	                    pointStrokeColor : "#fff",
+	                    data : [topic.a,topic.b,topic.c,topic.d,topic.e,topic.f]
+	                },
+	                 {
+	                    fillColor : "rgba(20,220,220,0.5)",
+	                    strokeColor : "rgba(20,220,220,1)",
+	                    pointColor : "rgba(20,220,220,1)",
+	                    pointStrokeColor : "#fff",
+	                    data : [topic.a,topic.b,topic.c,topic.d,topic.e,topic.f]
+	                }
+	           	 ]
+	        	}
+        	return data;
+        }
+        /**
+        *DoughnutData
+        */
+        function getDoughnutData(topic){
+        	var doughnutData = [
+				{
+					value: topic.a,
+					color:"#F7464A",
+					highlight: "#FF5A5E",
+					label: "A"
+				},
+				{
+					value: topic.b,
+					color: "#46BFBD",
+					highlight: "#5AD3D1",
+					label: "B"
+				},
+				{
+					value: topic.c,
+					color: "#FDB45C",
+					highlight: "#FFC870",
+					label: "C"
+				},
+				{
+					value: topic.d,
+					color: "#949FB1",
+					highlight: "#A8B3C5",
+					label: "D"
+				},
+				{
+					value: topic.e,
+					color: "#4D5360",
+					highlight: "#616774",
+					label: "E"
+				},
+				{
+					value: topic.f,
+					color: "#4D5360",
+					highlight: "#616774",
+					label: "F"
+				}
+
+			];
+			return doughnutData;
+        }
+        /**
+        *BarData
+        */
+        function getBarData(topic){
+        	var labelss=["A", "B", "C", "D", "E", "F"];
+        	var datasetss;
+        	var barChartData;
+        	var datasetsss=new Array();
+        	//alert(topic);
+        	//var len=topic.length;
+        	
+        	//for(var t in topic){
+        		
+        		for(var d in topic){
+        		var dataArr = new Array();
+        			//var dataset;
+        			//var datasetss = new Array();
+        			//通过名字获取json的数据
+        			//alert(t);
+        			alert(topic[d].a);
+        			dataArr.push(topic[d].a);
+	        		dataArr.push(topic[d].b);
+	        		dataArr.push(topic[d].c);
+	        		dataArr.push(topic[d].d);
+	        		dataArr.push(topic[d].e);
+	        		dataArr.push(topic[d].f);
+					datasetss={
+						fillColor : "rgba(151,187,205,0.5)",
+						strokeColor : "rgba(151,187,205,0.8)",
+						highlightFill : "rgba(151,187,205,0.75)",
+						highlightStroke : "rgba(151,187,205,1)",
+						data : [dataArr[0],dataArr[1],dataArr[2],dataArr[3],dataArr[4],dataArr[5]]
+					},
+					datasetsss.push(datasetss);
+        		}
+        		
+        		//datasetsss.push(datasetss);
+        		
+        	//}
+        	barChartData={
+        			labels : labelss,
+        			datasets :datasetsss,				
+        		};
+			return barChartData;
+        }
+        /**
+        *radarcharData
+        */
+        function getRadarChartData(topic){
+	        var radarChartData = {
+			labels: ["A", "B", "C", "D", "E", "F"],
+			datasets: [
+				{
+					label: "My First dataset",
+					fillColor: "rgba(220,220,220,0.2)",
+					strokeColor: "rgba(220,220,220,1)",
+					pointColor: "rgba(220,220,220,1)",
+					pointStrokeColor: "#fff",
+					pointHighlightFill: "#fff",
+					pointHighlightStroke: "rgba(220,220,220,1)",
+//					data: [topic.a,topic.b,topic.c,topic.d,topic.e,topic.f]
+				}
+			]
+		};
+		return radarChartData;
+	}
+	/**
+	*ploar
+	*/
+	function getPolarData(topic){
+		var polarData = [
+				{
+					value: 300,
+					color:"#F7464A",
+					highlight: "#FF5A5E",
+					label: "Red"
+				},
+				{
+					value: 50,
+					color: "#46BFBD",
+					highlight: "#5AD3D1",
+					label: "Green"
+				},
+				{
+					value: 100,
+					color: "#FDB45C",
+					highlight: "#FFC870",
+					label: "Yellow"
+				},
+				{
+					value: 40,
+					color: "#949FB1",
+					highlight: "#A8B3C5",
+					label: "Grey"
+				},
+				{
+					value: 120,
+					color: "#4D5360",
+					highlight: "#616774",
+					label: "Dark Grey"
+				}
+
+			];
+			return polarData;
+	}
+     /*    window.onload=function(){
+            var ctx = document.getElementById("myChart").getContext("2d");
+           		var myChart = new Chart(ctx).Line(data);
+
+        } */
+       /*  $(document).ready(function(){
+            var postData ={deptid:1,questionid:1};
+            var URL="test/stat";
+            $.post(URL,postData,function(data){
+				var ctxLine = document.getElementById("myLineChart").getContext("2d");
+           		var myChart = new Chart(ctxLine).Line(getLineData(data.topic1));
+           						
+				var ctxBar = document.getElementById("myBarChart").getContext("2d");
+				window.myBar = new Chart(ctxBar).Bar(getBarData(data.topic2), {responsive : true});
+				
+           		var ctxDoug = document.getElementById("myDougChart").getContext("2d");
+				window.myDoughnut = new Chart(ctxDoug).Doughnut(getDoughnutData(data.topic1), {responsive : true});
+               
+                window.myRadar = new Chart(document.getElementById("myRadarChart").getContext("2d")).Radar(getRadarChartData(data.topic1), {
+			responsive: true});
+			
+				window.myRadar = new Chart(document.getElementById("myPolarChart").getContext("2d")).PolarArea(getPolarData(data.topic1), {
+			responsive: true});
+	
+                //记得写JSON格式，否则认为返回的数据不能识别为json。
+            },"json");
+        }); */
+        $(document).ready(function(){
+ //           var postData ={deptid:1,questionid:1};
+            var URL="test/statDeptArr";
+            var deptIdArr = new Array();
+            deptIdArr.push(1);
+//           deptIdArr.push(2);
+            var postData ={deptid:deptIdArr,questionid:1};
+            
+            $.post(URL,postData,function(data){
+				var ctxBar = document.getElementById("myBarChart").getContext("2d");
+				window.myBar = new Chart(ctxBar).Bar(getBarData(data.topicId1), {responsive : true});
+                //记得写JSON格式，否则认为返回的数据不能识别为json。
+                //alert(data);
+            },"json");
+        });
+    </script>
+	<style type="text/css">
+		canvas{
+			display: block;
+			float: left;
+			width: 200px;
+			height: 200px;
+		}
+		div{
+		margin-left:20px;
+		display: block;
+		float:left;
+		width:400px; 
+		height: 400px;
+		}
+	</style>
+</head>
+<body>
+    
+    
+    <div style="width: auto;">
+	    <div >
+		        <canvas id="myBarChart" width="400px" height="400px"></canvas>		        
+	    </div>
+	    <div >
+		        <canvas id="myLineChart" width="400px" height="400px"></canvas>
+	    </div>
+	    <div >
+		        <canvas id="myDougChart" width="400px" height="400px"></canvas>
+	    </div>
+	    <div >
+		        <canvas id="myRadarChart" width="400px" height="400px"></canvas>
+	    </div>
+	    <div >
+		        <canvas id="myPolarChart" width="400px" height="400px"></canvas>
+	    </div>
+	    <div >
+		        <canvas id="myRadarChart" width="400px" height="400px"></canvas>
+	    </div>
+	    <div >
+		        <canvas id="myLineChart" width="400px" height="400px"></canvas>
+		        <canvas id="myBarChart" width="400px" height="400px"></canvas>
+		        <canvas id="myDougChart" width="400px" height="400px"></canvas>
+		        <canvas id="myRadarChart" width="400px" height="400px"></canvas>
+		        <canvas id="myChart" width="400px" height="400px"></canvas>
+		        <canvas id="myChart" width="400px" height="400px"></canvas>
+	    </div>
+    </div>
+    <a href="test/stat?rdeptid=1,2&questionid=1">Test</a><br>
+    <a href="test/statDeptArr?questionid=1">Test</a>
+    <div id="show"></div>	
+</body>
+</html>

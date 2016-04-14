@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="js/jquery-2.0.0.js"></script>
+    <script src="js/Chart.js"></script>
+    <script>
+        var dataA = new Array ("10","20","30","40","50","60");
+        
+        /**
+        *BarData
+        */
+        function getBarData(topic){
+        	var labelsdata=["A", "B", "C", "D", "E", "F"];
+        	var labelss = new Array();
+        	var i=0;
+        	var datasetss;
+        	var barChartData;
+        	var datasetsss=new Array();
+        	        		
+        		for(var d in topic){
+        		var dataArr = new Array();
+        			labelss.push(labelsdata[i++])
+        			
+        			dataArr.push(topic[d].a);
+	        		dataArr.push(topic[d].b);
+	        		dataArr.push(topic[d].c);
+	        		dataArr.push(topic[d].d);
+	        		dataArr.push(topic[d].e);
+	        		dataArr.push(topic[d].f);
+	        		var fillcolor = "rgba(1"+i*50+",187,205,0.5)";
+	        		var highlightfill = "rgba(1"+i*53+",187,205,0.75)"
+					datasetss={
+						fillColor : fillcolor,
+						strokeColor : "rgba(151,187,205,0.8)",
+						highlightFill : highlightfill,
+						highlightStroke : "rgba(151,187,205,1)",
+						data : [dataArr[0],dataArr[1],dataArr[2],dataArr[3],dataArr[4],dataArr[5]]
+					},
+					datasetsss.push(datasetss);
+        		}
+        	barChartData={
+        			labels : labelss,
+        			datasets :datasetsss,				
+        		};
+			return barChartData;
+        }
+        $(document).ready(function(){
+            var URL="test/statDeptArr";
+            var deptIdArr = new Array();
+            deptIdArr.push(2); 
+            var postData ={questionid:2};
+            
+            $.post(URL,postData,function(data){
+				var i=0;
+				for(var t in data){
+					i++;
+					var child = '<canvas id="myBarChart'+i+'" width="400px" height="400px"></canvas>';
+					$("#myBarChartArr").append(child);
+					var ctxBar = document.getElementById("myBarChart"+i).getContext("2d");
+					window.myBar = new Chart(ctxBar).Bar(getBarData(data[t]), {responsive : true});
+				}
+            },"json");
+        });
+    </script>
+	<style type="text/css">
+		canvas{
+			display: block;
+			float: left;
+			width: 200px;
+			height: 200px;
+		}
+		div{
+		margin-left:20px;
+		display: block;
+		float:left;
+		width:400px; 
+		height: 400px;
+		}
+	</style>
+</head>
+<body>
+    
+    
+    <div style="width: auto;">
+	    <div id="myBarChartArr">
+		        <canvas id="myBarChart" width="400px" height="400px"></canvas>
+	    </div>
+    </div>
+    <a href="test/stat?rdeptid=1,2&questionid=1">Test</a><br>
+    <a href="test/statDeptArr?questionid=1">Test</a>
+    <div id="show"></div>	
+</body>
+</html>
